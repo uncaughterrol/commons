@@ -13,11 +13,12 @@ Each module is **independently published** — pull only what you need.
 
 # Modules
 
-| Module                                   | Description                                  | Version                                                                                            |
-|------------------------------------------|----------------------------------------------|----------------------------------------------------------------------------------------------------|
-| [commons-security](./commons-security)   | HMAC-SHA256 request signing and verification | ![Maven Central](https://img.shields.io/maven-central/v/io.github.uncaughterrol/commons-security)  |
-| [commons-exception](./commons-exception) | Standardized API exceptions & factory        | ![Maven Central](https://img.shields.io/maven-central/v/io.github.uncaughterrol/commons-exception) |
-| [commons-model](./commons-model)         | API response wrappers & validation models    | ![Maven Central](https://img.shields.io/maven-central/v/io.github.uncaughterrol/commons-model)     |
+| Module                                   | Description                                                         | Version                                                                                            |
+|------------------------------------------|---------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| [commons-security](./commons-security)   | HMAC-SHA256 request signing and verification                        | ![Maven Central](https://img.shields.io/maven-central/v/io.github.uncaughterrol/commons-security)  |
+| [commons-exception](./commons-exception) | Standardized API exceptions & factory                               | ![Maven Central](https://img.shields.io/maven-central/v/io.github.uncaughterrol/commons-exception) |
+| [commons-model](./commons-model)         | API response wrappers & validation models                           | ![Maven Central](https://img.shields.io/maven-central/v/io.github.uncaughterrol/commons-model)     |
+| [commons-utils](./commons-utils)         | Utility classes and helper functions shared across commons modules. | ![Maven Central](https://img.shields.io/maven-central/v/io.github.uncaughterrol/commons-utils)     |
 
 > More modules coming soon.
 
@@ -32,27 +33,34 @@ Pick only the modules you need.
 <dependency>
     <groupId>io.github.uncaughterrol</groupId>
     <artifactId>commons-security</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 </dependency>
 
 <dependency>
     <groupId>io.github.uncaughterrol</groupId>
     <artifactId>commons-exception</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 </dependency>
 
 <dependency>
     <groupId>io.github.uncaughterrol</groupId>
     <artifactId>commons-model</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
+</dependency>
+
+<dependency>
+    <groupId>io.github.uncaughterrol</groupId>
+    <artifactId>commons-utils</artifactId>
+    <version>0.4.0</version>
 </dependency>
 ```
 
 ## Gradle
 ```gradle
-implementation 'io.github.uncaughterrol:commons-security:0.3.0'
-implementation 'io.github.uncaughterrol:commons-exception:0.3.0'
-implementation 'io.github.uncaughterrol:commons-model:0.3.0'
+implementation 'io.github.uncaughterrol:commons-security:0.4.0'
+implementation 'io.github.uncaughterrol:commons-exception:0.4.0'
+implementation 'io.github.uncaughterrol:commons-model:0.4.0'
+implementation 'io.github.uncaughterrol:commons-utils:0.4.0'
 ```
 
 ---
@@ -69,10 +77,10 @@ Map<String, String> payload = Map.of(
 );
 
 // Sign
-String signature = EncryptionUtils.sign(payload, "my-secret-key");
+String signature = SignatureSigner.sign(payload, "my-secret-key");
 
 // Verify
-boolean valid = EncryptionUtils.verify(payload, signature, "my-secret-key");
+boolean valid = SignatureSigner.verify(payload, signature, "my-secret-key");
 ```
 
 → [Full documentation](./commons-security/README.md)
@@ -129,6 +137,79 @@ ApiResponse<Void> response = ApiResponse.error(
 ```
 
 → [Full documentation](./commons-model/README.md)
+
+## commons-utils
+
+Utility classes and helper functions shared across commons modules.
+
+### Static Utility Usage (SmartStringUtils)
+```java
+
+import io.github.uncaughterrol.smartstring.SmartStringUtils;
+
+public class Example {
+
+    public static void main(String[] args) {
+
+        String snake = SmartStringUtils.toSnakeCase("HelloWorldExample");
+        System.out.println(snake);
+        // hello_world_example
+
+        String camel = SmartStringUtils.toCamelCase("hello_world");
+        System.out.println(camel);
+        // helloWorld
+
+        String pascal = SmartStringUtils.toPascalCase("hello_world");
+        System.out.println(pascal);
+        // HelloWorld
+    }
+}
+
+```
+
+### Pluralization
+```java
+
+import io.github.uncaughterrol.smartstring.SmartStringUtils;
+
+public class Example {
+
+    public static void main(String[] args) {
+
+        System.out.println(SmartStringUtils.toPlural("city"));
+        // cities
+
+        System.out.println(SmartStringUtils.toPlural("box"));
+        // boxes
+
+        System.out.println(SmartStringUtils.toPlural("dog"));
+        // dogs
+    }
+}
+
+```
+
+### Singularization
+
+```java
+import io.github.uncaughterrol.smartstring.SmartStringUtils;
+
+public class Example {
+
+    public static void main(String[] args) {
+
+        System.out.println(SmartStringUtils.toSingular("cities"));
+        // city
+
+        System.out.println(SmartStringUtils.toSingular("boxes"));
+        // box
+    }
+}
+```
+
+
+
+→ [Full documentation](./commons-utils/README.md)
 
 ---
 

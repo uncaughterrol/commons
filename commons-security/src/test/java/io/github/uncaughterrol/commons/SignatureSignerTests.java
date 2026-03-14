@@ -1,12 +1,13 @@
 package io.github.uncaughterrol.commons;
 
+import io.github.uncaughterrol.commons.security.SignatureSigner;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
 
-class EncryptionUtilsTests {
+class SignatureSignerTests {
 
     private static final String SECRET = "test-secret";
 
@@ -19,9 +20,9 @@ class EncryptionUtilsTests {
                 "timestamp", "1710000000"
         );
 
-        String signature = EncryptionUtils.sign(payload, SECRET);
+        String signature = SignatureSigner.sign(payload, SECRET);
 
-        boolean valid = EncryptionUtils.verify(payload, signature, SECRET);
+        boolean valid = SignatureSigner.verify(payload, signature, SECRET);
 
         Assertions.assertTrue(valid);
     }
@@ -35,7 +36,7 @@ class EncryptionUtilsTests {
                 "timestamp", "1710000000"
         );
 
-        String signature = EncryptionUtils.sign(payload, SECRET);
+        String signature = SignatureSigner.sign(payload, SECRET);
 
         Map<String, String> tampered = Map.of(
                 "recipient", "attacker@email.com",
@@ -43,7 +44,7 @@ class EncryptionUtilsTests {
                 "timestamp", "1710000000"
         );
 
-        boolean valid = EncryptionUtils.verify(tampered, signature, SECRET);
+        boolean valid = SignatureSigner.verify(tampered, signature, SECRET);
 
         Assertions.assertFalse(valid);
     }
@@ -56,9 +57,9 @@ class EncryptionUtilsTests {
                 "timestamp", "1710000000"
         );
 
-        String signature = EncryptionUtils.sign(payload, SECRET);
+        String signature = SignatureSigner.sign(payload, SECRET);
 
-        boolean valid = EncryptionUtils.verify(payload, signature, "wrong-secret");
+        boolean valid = SignatureSigner.verify(payload, signature, "wrong-secret");
 
         Assertions.assertFalse(valid);
     }

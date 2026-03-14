@@ -1,4 +1,4 @@
-package io.github.uncaughterrol.commons;
+package io.github.uncaughterrol.commons.security;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *       when the same secret is reused across calls.</li>
  * </ul>
  */
-public final class EncryptionUtils {
+public final class SignatureSigner {
 
     private static final String HMAC_SHA256 = "HmacSHA256";
 
@@ -56,7 +56,7 @@ public final class EncryptionUtils {
     /**
      * Private constructor to prevent instantiation of this utility class.
      */
-    private EncryptionUtils() {
+    private SignatureSigner() {
     }
 
     /**

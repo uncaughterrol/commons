@@ -3,20 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>io.github.uncaughterrol</groupId>
         <artifactId>commons</artifactId>
         <version>0.4.0</version>
     </parent>
 
-    <artifactId>commons-model</artifactId>
+    <artifactId>commons-utils</artifactId>
     <packaging>jar</packaging>
 
-    <name>Commons Model</name>
+    <name>Commons Utils</name>
     <description>
-        Shared domain models used across Commons modules, including standard API response structures and validation
-        parameter representations.
+        Utility classes and helper functions shared across commons modules.
     </description>
 
     <dependencies>
